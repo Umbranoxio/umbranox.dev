@@ -1,7 +1,9 @@
 ---
-import '@fontsource/geist-sans';
+import '@fontsource/geist-mono';
 import '../styles/main.css';
+import Navbar from '../components/navbar.astro';
 const { content } = Astro.props;
+import { ViewTransitions } from 'astro:transitions';
 ---
 
 <html lang="en">
@@ -9,9 +11,11 @@ const { content } = Astro.props;
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      <title>{content.title}</title>
+      <ViewTransitions />
+      <!-- <title>{content.title}</title> -->
    </head>
    <body class="text-gray-200 bg-gradient-to-b from-[#09090b] to-[#0c0c0f]">
+      <Navbar />
       <slot />
    </body>
 </html>
