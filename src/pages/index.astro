@@ -1,11 +1,11 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import Footer from '../components/socials.astro';
+import Socials from '../components/socials.astro';
 ---
 
-<MainLayout title="Umbranox">
-   <div class="grid place-items-center h-screen content-center">
+<MainLayout title="home | umbranox" description="some software dev">
+   <div class="absolute inset-0 flex flex-col justify-center items-center space-y-4">
       <h1 class="text-5xl font-bold tracking-[.25em] transition-colors hover:text-syellow duration-500 cursor-default">umbranox</h1>
-      <Footer />
+      <Socials />
    </div>
 </MainLayout>

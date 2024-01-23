@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Head from '../components/head.astro';
+import Navbar from '../components/navbar.astro';
+import { formatDate } from '../utils/utils';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, publishDate, updatedDate, image } = Astro.props;
+
+const schema = {
+   '@context': 'https://schema.org',
+   '@type': 'BlogPosting',
+   headline: title,
+   image: [`https://umbranox.dev/${image}`],
+   datePublished: publishDate,
+   dateModified: updatedDate,
+   author: [
+      {
+         '@type': 'Person',
+         name: 'umbranox',
+         url: 'https://umbranox.dev',
+      },
+   ],
+};
+---
+
+<html lang="en">
+   <head>
+      <Head title={`${title} | umbranox`} description={description} />
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+   </head>
+   <body class="main text-gray-200 mx-auto max-w-4xl px-4 bg-[#09090b] pb-8">
+      <Navbar />
+      <main class="mt-8 border border-[#333333] rounded-[8px] p-4">
+         <article>
+            <h1 class="text-3xl text-white font-semibold">
+               {title}
+            </h1>
+            <div class="text-lg text-gray-500">
+               posted on <time datetime={publishDate}>{formatDate(publishDate)}</time>
+
+               {
+                  publishDate !== updatedDate && (
+                     <>
+                        • updated <time datetime={updatedDate}>{formatDate(updatedDate)}</time>
+                     </>
+                  )
+               }
+            </div>
+            <hr class="mt-2 rounded-full border-t-2 border-[#333333]" />
+            <img class="mt-8 rounded-lg" width={896} height={336} src={image} transition:name={`${title}-image`} />
+            <div class="post mt-2">
+               <slot />
+            </div>
+         </article>
+         <hr class="mt-8 rounded-full border-t-2 border-[#333333]" />
+         <footer class="my-4 grid text-xl">
+            <a class="text-inaccessible transition-colors hover:text-syellow" href="/blog/">back to the blawg</a>
+         </footer>
+      </main>
+   </body>
+</html>

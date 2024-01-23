@@ -5,5 +5,93 @@
 @layer base {
    :root {
       --radius: 0.5rem;
+      scroll-behavior: smooth;
+      color-scheme: dark;
    }
+}
+
+.main body {
+   overflow-y: scroll;
+}
+
+.post h2 {
+   font-weight: 600;
+   font-size: 1.25rem;
+   margin-top: 2.5rem;
+}
+
+.post p {
+   font-size: 1.125rem;
+   color: #c7ceda;
+   margin-top: 1rem;
+}
+
+.post a {
+   color: #fff;
+   text-decoration: underline;
+   transition-property: color;
+   transition-timing-function: cubic-bezier(0.24, 0.11, 0.27, 1);
+   transition-duration: 150ms;
+}
+
+.post h2 a {
+   text-decoration: none;
+}
+
+.post a:hover {
+   color: #fedb47;
+}
+
+.post img {
+   border-radius: 10px;
+}
+
+.astro-code {
+   border-radius: 6px;
+   border-color: #333333;
+   border-style: solid;
+   border-width: 1px;
+   border-radius: 0.5rem;
+   margin-top: 1rem;
+   padding: 1rem;
+   background-color: #000 !important;
+   max-height: 640px;
+}
+
+.post mark {
+   border-radius: 6px;
+   border-color: #333333;
+   border-style: solid;
+   border-width: 1px;
+   padding: 0.3rem 0.35rem 0.25rem 0.3rem;
+   background-color: #000;
+   color: #fff;
+}
+
+::selection {
+   background: #fedb47;
+   color: #09090b;
+}
+
+::-moz-selection {
+   background: #fedb47;
+   color: #09090b;
+}
+
+/* width */
+.main::-webkit-scrollbar {
+   width: 8px;
+   background: #09090b;
+}
+
+/* Track */
+.main::-webkit-scrollbar-track {
+   background: #0c0c0f;
+   border-radius: 12px;
+}
+
+/* Handle */
+.main::-webkit-scrollbar-thumb {
+   background: #161616;
+   border-radius: 12px;
 }

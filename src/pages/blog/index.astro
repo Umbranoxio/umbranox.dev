@@ -1,9 +1,44 @@
 ---
-import BlogLayout from '../../layouts/blog.astro';
+import MainLayout from '../../layouts/main.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../../utils/utils';
+
+const posts = (await getCollection('blog')).sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
 ---
 
-<BlogLayout>
-   <div class="grid place-items-center h-screen content-center">
-      <h1 class="text-5xl font-bold tracking-[.25em] transition-colors hover:text-syellow duration-500 cursor-default">blog</h1>
+<MainLayout title="blog | umbranox" description="the place where i write things">
+   <div class="mx-auto max-w-2xl px-4 mt-10">
+      <h1 class="mt-8 text-center text-xl font-semibold">umbra's blog</h1>
+      <div class="mt-8">
+         <ul>
+            {
+               posts.map((post) => (
+                  <a href={`/blog/${post.slug}`}>
+                     <li class="flex flex-row border bg-black/85 border-[#333333] hover:border-syellow/40 hover:bg-black/65 transition-colors rounded-[8px] p-2 content-center mt-2">
+                        <img
+                           class="rounded-lg max-[896px]:w-full"
+                           width="160"
+                           height="84"
+                           src={post.data.image}
+                           transition:name={`${post.data.title}-image`}
+                        />
+                        <div class="flex flex-col ml-4 justify-center">
+                             <div class="text-xl font-semibold text-ellipsis">
+                              {post.data.title}
+                           </div>
+                           <div class="flex flex-row">
+                              <p class="text-sm text-gray-500">posted on {formatDate(post.data.publishDate)}</p>
+                              {post.data.publishDate !== post.data.updatedDate && (
+                                 <p class="text-sm text-gray-500 ml-1 mr-1">•</p>
+                                 <p class="text-sm text-gray-500">updated {formatDate(post.data.updatedDate)}</p>
+                              )}
+                           </div>
+                        </div>
+                     </li>
+                  </a>
+               ))
+            }
+         </ul>
+      </div>
    </div>
-</BlogLayout>
+</MainLayout>

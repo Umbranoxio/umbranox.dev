@@ -1,21 +1,20 @@
 ---
-import '@fontsource/geist-mono';
-import '../styles/main.css';
 import Navbar from '../components/navbar.astro';
-const { title } = Astro.props;
-import { ViewTransitions } from 'astro:transitions';
+import Head from '../components/head.astro';
+
+interface Props {
+   title: string;
+   description: string;
+}
+
+const { title, description } = Astro.props;
 ---
 
 <html lang="en">
    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width" />
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      <title>{title}</title>
-      <ViewTransitions />
+      <Head title={title} description={description} />
    </head>
-
-   <body class="text-gray-200 bg-gradient-to-b from-[#09090b] to-[#0c0c0f]">
+   <body class="main text-gray-200 bg-[#09090b]">
       <Navbar />
       <slot />
    </body>
