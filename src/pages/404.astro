@@ -1,0 +1,14 @@
+---
+import MainLayout from '../layouts/main.astro';
+import Logo from '../assets/logo.svg.astro';
+---
+
+<MainLayout title="home | umbranox" description="some software dev" image="/android-chrome-192x192.png">
+   <div class="absolute inset-0 flex flex-col justify-center items-center space-y-4">
+      <div class="w-20 h-20 logo" transition:name="logo">
+         <Logo />
+      </div>
+      <h1 class="text-2xl font-bold tracking-[.25em] transition-colors hover:text-green-400 duration-500 cursor-default">404</h1>
+      <h1 class="text-5xl font-bold tracking-[.25em] transition-colors hover:text-green-400 duration-500 cursor-default">someones lost</h1>
+   </div>
+</MainLayout>
