@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://umbranox.dev/sitemap-index.xml
