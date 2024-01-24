@@ -39,7 +39,7 @@
 }
 
 .post a:hover {
-   color: #fedb47;
+   color: #58de88;
 }
 
 .post img {
@@ -69,12 +69,12 @@
 }
 
 ::selection {
-   background: #fedb47;
+   background: #58de88;
    color: #09090b;
 }
 
 ::-moz-selection {
-   background: #fedb47;
+   background: #58de88;
    color: #09090b;
 }
 
@@ -94,4 +94,26 @@
 .main::-webkit-scrollbar-thumb {
    background: #161616;
    border-radius: 12px;
+}
+
+@keyframes custom-bounce {
+   0%,
+   20%,
+   50%,
+   80% {
+      transform: translateY(0);
+   }
+   40% {
+      transform: translateY(-15px);
+   }
+   60% {
+      transform: translateY(-7px);
+   }
+   100% {
+      transform: translateY(0) rotate(360deg);
+   }
+}
+
+.logo:hover {
+   animation: custom-bounce 2s;
 }

@@ -1,11 +1,15 @@
 ---
 import MainLayout from '../layouts/main.astro';
 import Socials from '../components/socials.astro';
+import Logo from '../assets/logo.svg.astro';
 ---
 
 <MainLayout title="home | umbranox" description="some software dev">
    <div class="absolute inset-0 flex flex-col justify-center items-center space-y-4">
-      <h1 class="text-5xl font-bold tracking-[.25em] transition-colors hover:text-syellow duration-500 cursor-default">umbranox</h1>
+      <div class="w-14 h-14 logo" transition:name="logo">
+         <Logo />
+      </div>
+      <h1 class="text-5xl font-bold tracking-[.25em] transition-colors hover:text-green-400 duration-500 cursor-default">umbranox</h1>
       <Socials />
    </div>
 </MainLayout>

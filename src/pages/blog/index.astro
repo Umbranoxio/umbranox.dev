@@ -2,19 +2,29 @@
 import MainLayout from '../../layouts/main.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../../utils/utils';
+import Logo from '../../assets/logo.svg.astro';
 
 const posts = (await getCollection('blog')).sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
 ---
 
 <MainLayout title="blog | umbranox" description="the place where i write things">
    <div class="mx-auto max-w-2xl px-4 mt-10">
-      <h1 class="mt-8 text-center text-xl font-semibold">umbra's blog</h1>
+    
+      <h1 class="flex flex-row mt-8 text-center text-xl font-semibold items-center justify-center">
+         <div class="w-14 h-14 logo">
+            <Logo />
+         </div>
+         <span class="ml-2">
+            umbra's blog
+         </span>
+      </h1>
+
       <div class="mt-8">
          <ul>
             {
                posts.map((post) => (
                   <a href={`/blog/${post.slug}`}>
-                     <li class="flex flex-col md:flex-row border bg-black/85 border-[#333333] hover:border-syellow/40 hover:bg-black/65 transition-colors rounded-[8px] p-2 content-center mt-2">
+                     <li class="flex flex-col md:flex-row border bg-black/85 border-[#333333] hover:border-green-400/40 hover:bg-black/65 transition-colors rounded-[8px] p-2 content-center mt-2">
                         <img
                            class="rounded-lg max-[896px]:w-full"
                            width="160"
