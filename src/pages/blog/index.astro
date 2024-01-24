@@ -19,7 +19,7 @@ const posts = (await getCollection('blog')).sort((a, b) => new Date(b.data.publi
          </span>
       </h1>
 
-      <div class="mt-8">
+      <div class="mt-8 mb-8">
          <ul>
             {
                posts.map((post) => (
