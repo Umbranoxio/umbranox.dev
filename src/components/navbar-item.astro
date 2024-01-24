@@ -1,11 +1,13 @@
 ---
 interface Props {
-   active: boolean;
    href: string;
    title: string;
 }
 
-const { active, href, title } = Astro.props;
+const { href, title } = Astro.props;
+
+const { pathname } = Astro.url;
+const active = href === pathname || href === pathname.replace(/\/$/, '');
 ---
 
 <a href={href} class={`${active ? 'bg-[#161616]' : 'transition-colors hover:text-green-400'} rounded-[4px] pt-1 pb-1 pl-2 pr-2 m-1`}>
