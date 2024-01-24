@@ -7,7 +7,3 @@ export function formatDate(date: string) {
       })
       .toLowerCase();
 }
-
-export function matchRoute(route: string, path: string) {
-   return route === path.replace(/\/$/, '');
-}
