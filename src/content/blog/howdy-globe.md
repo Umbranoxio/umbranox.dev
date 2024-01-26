@@ -16,4 +16,4 @@ idk i go out and take pictures sometimes, will probably make a little gallery se
 
 ## [actual picture of me](#actual-picture-of-me)
 
-![me](/content/goog.png)
+![A silly animal on the computer looking the at front page of google with the caption "on the goog"](/content/goog.png)
