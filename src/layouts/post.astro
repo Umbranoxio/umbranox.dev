@@ -28,7 +28,7 @@ const schema = {
 <html lang="en">
    <head>
       <Head title={`${title} | umbranox`} description={description} />
-      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
    </head>
    <body class="main text-gray-200 mx-auto max-w-4xl px-4 bg-[#09090b] pb-8">
       <Navbar />
