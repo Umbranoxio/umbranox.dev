@@ -1,9 +1,19 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+// @ts-check
+import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-   integrations: [tailwind({ applyBaseStyles: false }), sitemap()],
-   site: 'https://umbranox.dev',
+  site: 'https://umbranox.dev',
+  prefetch: true,
+  build: {
+    inlineStylesheets: 'always',
+  },
+  integrations: [mdx(), sitemap()],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

@@ -1,53 +1,55 @@
 ---
 import MainLayout from '../../layouts/main.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../../utils/utils';
-import Logo from '../../assets/logo.svg.astro';
+import { formatDate } from '../../utils/format-date';
 
 const posts = (await getCollection('blog')).sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
 ---
 
-<MainLayout title="blog | umbranox" description="the place where i write things">
-   <div class="mx-auto max-w-2xl px-4 mt-10">
-    
-      <h1 class="flex flex-row mt-8 text-center text-xl font-semibold items-center justify-center">
-         <div class="w-14 h-14 logo" transition:name="logo">
-            <Logo />
-         </div>
+<MainLayout title="blog | umbranox" description="the place where i write things" bodyClass="blog-listing">
+   <div class="mx-auto mt-10 max-w-2xl px-4">
+      <h1 class="mt-8 flex items-center justify-center text-center text-xl font-semibold">
+         <span class="size-14 logo" transition:name="site-logo">
+            <img class="size-full" src="/logo.svg" alt="" decoding="async" />
+         </span>
          <span class="ml-2">
             umbra's blog
          </span>
       </h1>
 
-      <div class="mt-8 mb-8">
-            {
-               posts.map((post) => (
-                  <a href={`/blog/${post.slug}`}>
-                     <div class="flex flex-col md:flex-row border bg-black/85 border-[#333333] hover:border-green-400/40 hover:bg-black/65 transition-colors rounded-[8px] p-2 content-center mt-2">
+      <ul class="mt-8 mb-8">
+         {
+            posts.map((post, index) => (
+               <li class="mt-2">
+                  <a class="block rounded-lg" href={`/blog/${post.id}`} data-astro-prefetch>
+                     <article class="flex flex-col rounded-lg border border-line bg-surface/85 p-2 transition-colors hover:border-nav-hover/40 hover:bg-surface/65 md:flex-row">
                         <img
-                           class="rounded-lg max-[896px]:w-full"
+                           class="h-auto rounded-lg max-md:w-full md:self-center"
                            width="160"
-                           height="84"
+                           height="60"
                            src={post.data.image}
-                           transition:name={`${post.data.title}-image`}
-                           alt={`{post.data.title} image`}
+                           alt=""
+                           loading={index === 0 ? 'eager' : 'lazy'}
+                           decoding="async"
+                           fetchpriority={index === 0 ? 'high' : undefined}
+                           transition:name={`blog-image-${post.id}`}
                         />
-                        <div class="flex flex-col mt-2 md:mt-0 md:ml-4 justify-start md:justify-center">
-                             <div class="text-xl font-semibold text-ellipsis">
+                        <div class="mt-2 flex flex-col md:mt-0 md:ml-4 md:justify-center">
+                           <h2 class="text-xl font-semibold text-ellipsis" transition:name={`blog-title-${post.id}`}>
                               {post.data.title}
-                           </div>
-                           <div class="flex flex-row">
-                              <p class="text-sm text-gray-400">posted on {formatDate(post.data.publishDate)}</p>
+                           </h2>
+                           <div class="flex flex-wrap gap-x-1 text-sm text-muted" transition:name={`blog-date-${post.id}`}>
+                              <p>posted on <time datetime={post.data.publishDate}>{formatDate(post.data.publishDate)}</time></p>
                               {post.data.publishDate !== post.data.updatedDate && (
-                                 <p class="text-sm text-gray-400 ml-1 mr-1">•</p>
-                                 <p class="text-sm text-gray-400">updated {formatDate(post.data.updatedDate)}</p>
+                                 <p>- updated <time datetime={post.data.updatedDate}>{formatDate(post.data.updatedDate)}</time></p>
                               )}
                            </div>
                         </div>
-                     </div>
+                     </article>
                   </a>
-               ))
-            }
-      </div>
+               </li>
+            ))
+         }
+      </ul>
    </div>
 </MainLayout>

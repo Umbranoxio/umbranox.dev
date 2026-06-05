@@ -1,14 +1,22 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import Logo from '../assets/logo.svg.astro';
 ---
 
-<MainLayout title="home | umbranox" description="some software dev" image="/android-chrome-192x192.png">
-   <div class="absolute inset-0 flex flex-col justify-center items-center space-y-4">
-      <div class="w-20 h-20 logo" transition:name="logo">
-         <Logo />
+<MainLayout
+   title="404 | umbranox"
+   description="page not found"
+   image="/android-chrome-192x192.png"
+   imageHeight="192"
+   imageWidth="192"
+   mainClass="absolute inset-0 flex items-center justify-center px-4 py-8"
+>
+   <div class="flex flex-col items-center justify-center space-y-4 text-center">
+      <div class="size-20 logo">
+         <img class="size-full" src="/logo.svg" alt="" decoding="async" />
       </div>
-      <h1 class="text-2xl font-bold tracking-[.25em] transition-colors hover:text-green-400 duration-500 cursor-default">404</h1>
-      <h1 class="text-5xl font-bold tracking-[.25em] transition-colors hover:text-green-400 duration-500 cursor-default">someones lost</h1>
+      <p class="cursor-default text-2xl font-bold tracking-brand transition-colors duration-500 hover:text-nav-hover">404</p>
+      <h1 class="cursor-default text-4xl font-bold leading-tight tracking-brand transition-colors duration-500 hover:text-nav-hover sm:text-5xl">
+         someones lost
+      </h1>
    </div>
 </MainLayout>
