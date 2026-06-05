@@ -1,0 +1,14 @@
+{
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.experimental.configFile": {
+    "src/styles/main.css": "src/**/*.{astro,css,html,js,jsx,md,mdx,ts,tsx}"
+  },
+  "tailwindCSS.files.exclude": [
+    "**/.astro/**",
+    "**/.git/**",
+    "**/dist/**",
+    "**/node_modules/**"
+  ]
+}

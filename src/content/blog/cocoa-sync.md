@@ -3,7 +3,8 @@ title: 'cocoa sync: it brings unmanaged software under chocolatey management'
 description: 'i made a program to upgrade existing programs to chocolatey packages'
 publishDate: '2024-02-26'
 updatedDate: '2024-02-26'
-image: '/content/cocoa-sync.png'
+image: '/content/cocoa-sync.webp'
+imageAlt: 'A terminal window beside the Cocoa Sync bean logo'
 ---
 
 ## i got bored

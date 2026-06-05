@@ -1,7 +1,7 @@
 ---
-import '@fontsource/geist-mono';
-import '../styles/main.css';
 import { ClientRouter } from 'astro:transitions';
+import '../styles/main.css';
+import geistMonoLatin400Url from '@fontsource/geist-mono/files/geist-mono-latin-400-normal.woff2?url';
 
 interface Props {
    title: string;
@@ -9,39 +9,72 @@ interface Props {
    image?: string;
    imageHeight?: string;
    imageWidth?: string;
+   ogType?: 'website' | 'article';
+   publishDate?: string;
+   updatedDate?: string;
+   twitterCard?: 'summary' | 'summary_large_image';
 }
 
-const { title, description, image, imageHeight, imageWidth } = Astro.props;
+const { title, description, image, imageHeight, imageWidth, ogType = 'website', publishDate, updatedDate, twitterCard } = Astro.props;
+const browserColors = {
+   pinnedTab: '#4ade80',
+   tile: '#09090b',
+   theme: '#09090b',
+};
+
+const imageUrl = image ? new URL(image, Astro.url) : undefined;
+const cardType = twitterCard || (ogType === 'article' && imageUrl ? 'summary_large_image' : 'summary');
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<ClientRouter />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/svg+xml" href="/logo.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 <link rel="manifest" href="/site.webmanifest" />
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-<meta name="msapplication-TileColor" content="#da532c" />
-<meta name="theme-color" content="#ffffff" />
+<link rel="mask-icon" href="/logo.svg" color={browserColors.pinnedTab} />
+<meta name="msapplication-TileColor" content={browserColors.tile} />
+<meta name="theme-color" content={browserColors.theme} />
+<link rel="preload" href={geistMonoLatin400Url} as="font" type="font/woff2" crossorigin />
 <link rel="canonical" href={Astro.url.href} />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title="umbra's blog" href="/rss.xml" />
+<meta name="generator" content={Astro.generator} />
 
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="author" content="umbranox" />
 
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content="umbranox" />
 <meta property="og:url" content={Astro.url.href} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
+<meta name="twitter:card" content={cardType} />
+<meta name="twitter:site" content="@_umbranox" />
+<meta name="twitter:creator" content="@_umbranox" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
 
 {
-   image && (
+   ogType === 'article' && publishDate && (
       <>
-         <meta property="og:image" content={new URL(image, Astro.url)} />
-         <meta property="og:image:height" content={imageHeight || '128'} />
-         <meta property="og:image:width" content={imageWidth || '128'} />
+         <meta property="article:published_time" content={publishDate} />
+         <meta property="article:modified_time" content={updatedDate || publishDate} />
+         <meta property="article:author" content="https://umbranox.dev" />
       </>
    )
 }
 
-<ClientRouter />
+{
+   imageUrl && (
+      <>
+         <meta property="og:image" content={imageUrl} />
+         <meta name="twitter:image" content={imageUrl} />
+         {imageHeight && <meta property="og:image:height" content={imageHeight} />}
+         {imageWidth && <meta property="og:image:width" content={imageWidth} />}
+      </>
+   )
+}

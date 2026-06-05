@@ -2,17 +2,23 @@
 import type { CollectionEntry } from 'astro:content';
 import Head from '../components/head.astro';
 import Navbar from '../components/navbar.astro';
-import { formatDate } from '../utils/utils';
+import { formatDate } from '../utils/format-date';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+   transitionSlug: string;
+};
 
-const { title, description, publishDate, updatedDate, image } = Astro.props;
+const { title, description, publishDate, updatedDate, image, imageAlt, transitionSlug } = Astro.props;
+const imageUrl = new URL(image, Astro.site ?? Astro.url);
 
 const schema = {
    '@context': 'https://schema.org',
    '@type': 'BlogPosting',
    headline: title,
-   image: [`https://umbranox.dev/${image}`],
+   description,
+   url: Astro.url.href,
+   mainEntityOfPage: Astro.url.href,
+   image: [imageUrl.href],
    datePublished: publishDate,
    dateModified: updatedDate,
    author: [
@@ -22,41 +28,66 @@ const schema = {
          url: 'https://umbranox.dev',
       },
    ],
+   publisher: {
+      '@type': 'Person',
+      name: 'umbranox',
+      url: 'https://umbranox.dev',
+   },
 };
 ---
 
 <html lang="en">
    <head>
-      <Head title={`${title} | umbranox`} description={description} />
+      <Head
+         title={`${title} | umbranox`}
+         description={description}
+         image={image}
+         imageHeight="336"
+         imageWidth="896"
+         ogType="article"
+         publishDate={publishDate}
+         updatedDate={updatedDate}
+      />
       <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
    </head>
-   <body class="main text-gray-200 mx-auto max-w-4xl px-4 bg-[#09090b] pb-8">
+   <body class="main mx-auto max-w-4xl bg-page px-4 pb-8 text-body">
+      <a class="skip-link" href="#main">skip to content</a>
       <Navbar />
-      <main class="mt-8 border border-[#333333] rounded-[8px] p-4">
+      <main id="main" tabindex="-1" class="mt-8 rounded-lg border border-line p-4">
          <article>
-            <h1 class="text-3xl text-white font-semibold">
+            <h1 class="text-3xl text-strong font-semibold" transition:name={`blog-title-${transitionSlug}`}>
                {title}
             </h1>
-            <div class="text-lg text-gray-400">
+            <div class="text-lg text-muted" transition:name={`blog-date-${transitionSlug}`}>
                posted on <time datetime={publishDate}>{formatDate(publishDate)}</time>
 
                {
                   publishDate !== updatedDate && (
                      <>
-                        • updated <time datetime={updatedDate}>{formatDate(updatedDate)}</time>
+                        - updated <time datetime={updatedDate}>{formatDate(updatedDate)}</time>
                      </>
                   )
                }
             </div>
-            <hr class="mt-2 rounded-full border-t-2 border-[#333333]" />
-            <img class="mt-8 rounded-lg" width={896} height={336} src={image} alt={`${title} image`} transition:name={`${title}-image`} />
+            <hr class="mt-2 rounded-full border-t-2 border-line" />
+            <img
+               class="mt-8 h-auto rounded-lg"
+               width={896}
+               height={336}
+               src={image}
+               alt={imageAlt}
+               loading="eager"
+               decoding="async"
+               fetchpriority="high"
+               transition:name={`blog-image-${transitionSlug}`}
+            />
             <div class="post mt-2">
                <slot />
             </div>
          </article>
-         <hr class="mt-8 rounded-full border-t-2 border-[#333333]" />
+         <hr class="mt-8 rounded-full border-t-2 border-line" />
          <footer class="my-4 grid text-xl">
-            <a class="text-inaccessible transition-colors hover:text-syellow" href="/blog/">back to the blawg</a>
+            <a class="transition-colors hover:text-warning-link" href="/blog/" data-astro-prefetch>back to the blawg</a>
          </footer>
       </main>
    </body>

@@ -3,7 +3,8 @@ title: 'howdy globe'
 description: 'like hello world but funnier'
 publishDate: '2023-01-24'
 updatedDate: '2023-01-24'
-image: '/content/howdy-globe.png'
+image: '/content/howdy-globe.webp'
+imageAlt: 'A VS Code window showing the source for an early version of this blog'
 ---
 
 ## [i made a blog](#i-made-a-blog)
@@ -16,4 +17,4 @@ idk i go out and take pictures sometimes, will probably make a little gallery se
 
 ## [actual picture of me](#actual-picture-of-me)
 
-![A silly animal on the computer looking the at front page of google with the caption "on the goog"](/content/goog.png)
+![A silly animal on the computer looking the at front page of google with the caption "on the goog"](/content/goog.webp)
